@@ -1,4 +1,4 @@
-import 'package:chat_app_mk/auth/login_or_register.dart';
+import 'package:chat_app_mk/auth/auth_gate.dart';
 import 'package:chat_app_mk/firebase_options.dart';
 import 'package:chat_app_mk/theme/light_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'ChatApp',
       theme: lightMode,
       darkTheme: lightMode,
-      home: LoginOrRegister(),
+      home: const AuthGate(),
     );
   }
 }
