@@ -1,4 +1,4 @@
-import 'package:chat_app_mk/auth/login_or_register.dart';
+import 'package:chat_app_mk/services/auth/login_or_register.dart';
 import 'package:chat_app_mk/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class AuthGate extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
-            return const HomePage();
+            return HomePage();
           }
           return const LoginOrRegister();
         },

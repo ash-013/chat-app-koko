@@ -1,6 +1,6 @@
-import 'package:chat_app_mk/auth/auth_service.dart';
-import 'package:chat_app_mk/componets/custom_button.dart';
-import 'package:chat_app_mk/componets/my_textfield.dart';
+import 'package:chat_app_mk/services/auth/auth_service.dart';
+import 'package:chat_app_mk/components/custom_button.dart';
+import 'package:chat_app_mk/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,19 +20,12 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isLoading = false;
 
   Future<void> _register() async {
-    final _auth = AuthService();
+    final AuthService auth = AuthService();
     String email = _emailController.text.trim();
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
 
-    // 🔍 DEBUG LOGS
-    print('🔵 Register button pressed');
-    print('Email: "$email" (length: ${email.length})');
-    print('Password: "$password" (length: ${password.length})');
-    print('Confirm: "$confirmPassword" (length: ${confirmPassword.length})');
-
     if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      print('🔴 One or more fields are EMPTY');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please enter email, password and confirm password'),
@@ -60,9 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      print('🟡 Attempting registration...');
-      await _auth.signUpWithEmailAndPassword(email, password);
-      print('🟢 Registration successful!');
+      await auth.signUpWithEmailAndPassword(email, password);
 
       if (!mounted) return;
 
@@ -70,7 +61,6 @@ class _RegisterPageState extends State<RegisterPage> {
         context,
       ).showSnackBar(const SnackBar(content: Text('Registration successful!')));
     } catch (e) {
-      print('🔴 Registration error: $e');
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(

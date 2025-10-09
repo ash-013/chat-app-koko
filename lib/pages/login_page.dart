@@ -1,6 +1,6 @@
-import 'package:chat_app_mk/auth/auth_service.dart';
-import 'package:chat_app_mk/componets/custom_button.dart';
-import 'package:chat_app_mk/componets/my_textfield.dart';
+import 'package:chat_app_mk/services/auth/auth_service.dart';
+import 'package:chat_app_mk/components/custom_button.dart';
+import 'package:chat_app_mk/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false; // Add this
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -27,10 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _login() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text;
-
-    print('🔵 Login button pressed');
-    print('Email: $email');
-    print('Password length: ${password.length}');
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -45,9 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final AuthService authService = AuthService();
     try {
-      print('🟡 Attempting Firebase login...');
       await authService.signInWithEmailAndPassword(email, password);
-      print('🟢 Login successful!');
 
       if (!mounted) return;
 
@@ -55,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         context,
       ).showSnackBar(const SnackBar(content: Text('Login successful')));
     } catch (e) {
-      print('🔴 Login error: $e');
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -121,10 +114,7 @@ class _LoginPageState extends State<LoginPage> {
               // sign in button with loading state
               _isLoading
                   ? const CircularProgressIndicator()
-                  : CustomButton(
-                      onTap: _login, // Changed from () => _login()
-                      buttonLabel: 'Login',
-                    ),
+                  : CustomButton(onTap: _login, buttonLabel: 'Login'),
 
               // register now
               const SizedBox(height: 50),
