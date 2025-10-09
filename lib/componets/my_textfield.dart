@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 class MyTextfield extends StatelessWidget {
   final String hintTextHere;
   final bool obscure;
-  final TextInputType? keyboardType;
-  final TextEditingController controller = TextEditingController();
-  MyTextfield({
+  final TextEditingController controller; // ✅ This is crucial
+  final TextInputType keyboardType;
+
+  const MyTextfield({
     super.key,
     required this.hintTextHere,
     required this.obscure,
+    required this.controller, // ✅ Make sure this is required
     required this.keyboardType,
-    required TextEditingController controller,
   });
 
   @override
@@ -18,27 +19,24 @@ class MyTextfield extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
-        controller: controller,
-        keyboardType: keyboardType,
+        controller: controller, // ✅ CRITICAL: Must connect controller here
         obscureText: obscure,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-          filled: true,
-          fillColor: Theme.of(context).colorScheme.tertiary,
           hintText: hintTextHere,
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
+          fillColor: Theme.of(context).colorScheme.secondary,
+          filled: true,
         ),
       ),
     );
