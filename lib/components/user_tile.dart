@@ -18,11 +18,14 @@ class UserTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(Icons.person, color: Colors.white),
+            Icon(Icons.person, color: Theme.of(context).colorScheme.surface),
             const SizedBox(width: 16.0),
             Text(
               text,
-              style: const TextStyle(color: Colors.white, fontSize: 18.0),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontSize: 18.0,
+              ),
             ),
           ],
         ),

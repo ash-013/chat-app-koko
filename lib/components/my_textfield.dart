@@ -5,13 +5,14 @@ class MyTextfield extends StatelessWidget {
   final bool obscure;
   final TextEditingController controller; // ✅ This is crucial
   final TextInputType keyboardType;
-
+  final FocusNode? focusNode;
   const MyTextfield({
     super.key,
     required this.hintTextHere,
     required this.obscure,
     required this.controller, // ✅ Make sure this is required
     required this.keyboardType,
+    this.focusNode,
   });
 
   @override
@@ -19,12 +20,15 @@ class MyTextfield extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
-        controller: controller, // ✅ CRITICAL: Must connect controller here
+        controller: controller,
+        focusNode: focusNode,
+        cursorColor: Colors.black,
+        cursorErrorColor: Colors.red,
         obscureText: obscure,
         keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hintTextHere,
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+          hintStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.tertiary,
@@ -36,7 +40,7 @@ class MyTextfield extends StatelessWidget {
             ),
           ),
           fillColor: Theme.of(context).colorScheme.secondary,
-          filled: true,
+          filled: false,
         ),
       ),
     );

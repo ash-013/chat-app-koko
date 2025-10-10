@@ -14,7 +14,10 @@ class ChatBubble extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: isCurrentUser ? Colors.green.shade900 : Colors.blue.shade900,
+        borderRadius: BorderRadius.circular(8),
       ),
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(10),
       child: Text(message, style: TextStyle(color: Colors.white)),
     );
   }
